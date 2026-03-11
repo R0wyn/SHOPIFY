@@ -35,6 +35,14 @@
 {% enddoc %}
 
 {% liquid
+  assign product_page_style = settings.product_page_style | default: 'clean'
+  assign details_panel_padding = settings.details_panel_padding | default: 24
+  assign details_panel_radius = settings.details_panel_radius | default: 16
+  assign media_panel_radius = settings.media_panel_radius | default: 16
+  assign panel_border_opacity = settings.panel_border_opacity | default: 12
+  assign panel_shadow_strength = settings.panel_shadow_strength | default: 18
+  assign panel_background_opacity = settings.panel_background_opacity | default: 96
+
   # Determine render order based on media position
   if settings.desktop_media_position == 'left'
     assign render_order = 'media,product-details'
@@ -78,8 +86,18 @@
 
 <div class="section-background color-{{ settings.color_scheme }}"></div>
 <div
-  class="product-information section section--{{ content_width }} spacing-style color-{{ settings.color_scheme }} relative"
-  style="{% render 'spacing-style', settings: settings %} --gap: {{ settings.gap }}px;"
+  class="product-information product-information--style-{{ product_page_style }} section section--{{ content_width }} spacing-style color-{{ settings.color_scheme }} relative"
+  style="
+    {% render 'spacing-style', settings: settings %}
+    --gap: {{ settings.gap }}px;
+    --pi-details-padding: {{ details_panel_padding }}px;
+    --pi-details-radius: {{ details_panel_radius }}px;
+    --pi-media-radius: {{ media_panel_radius }}px;
+    --pi-border-opacity: {{ panel_border_opacity | divided_by: 100.0 }};
+    --pi-shadow-opacity: {{ panel_shadow_strength | divided_by: 100.0 }};
+    --pi-surface-opacity: {{ panel_background_opacity | divided_by: 100.0 }};
+    --pi-accent: {{ settings.panel_accent_color | default: '#111111' }};
+  "
   data-testid="product-information"
 >
   {% if settings.desktop_media_position == 'left' and product_has_media and request.page_type == 'product' %}
@@ -93,10 +111,16 @@
     {% assign render_order_array = render_order | split: ',' %}
     {% capture media %}
       <div
-        class="product-information__media"
+        class="product-information__media product-information__panel product-information__panel--media"
         data-testid="product-information-media"
       >
         {{ media_gallery }}
+      </div>
+    {% endcapture %}
+
+    {% capture details %}
+      <div class="product-information__panel product-information__panel--details">
+        {{ product_details }}
       </div>
     {% endcapture %}
 
@@ -104,7 +128,7 @@
       {% if block == 'media' and product_has_media %}
         {{ media }}
       {% elsif block == 'product-details' %}
-        {{ product_details }}
+        {{ details }}
       {% endif %}
     {% endfor %}
   </div>
@@ -140,6 +164,42 @@
     height: 100%;
   }
 
+  .product-information__panel {
+    border-radius: var(--pi-details-radius);
+    border: 1px solid rgb(var(--color-foreground-rgb) / var(--pi-border-opacity));
+    background: rgb(var(--color-background-rgb) / var(--pi-surface-opacity));
+    box-shadow: 0 1.2rem 3rem -2.2rem rgb(0 0 0 / var(--pi-shadow-opacity));
+    overflow: clip;
+  }
+
+  .product-information__panel--media {
+    border-radius: var(--pi-media-radius);
+  }
+
+  .product-information__panel--details {
+    padding: var(--pi-details-padding);
+  }
+
+  .product-information--style-clean .product-information__panel {
+    border-color: transparent;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .product-information--style-soft .product-information__panel {
+    background: color-mix(in srgb, rgb(var(--color-background-rgb)) 88%, var(--pi-accent) 12%);
+  }
+
+  .product-information--style-glass .product-information__panel {
+    backdrop-filter: blur(14px) saturate(130%);
+    background: color-mix(in srgb, rgb(var(--color-background-rgb)) 72%, transparent);
+  }
+
+  .product-information--style-bold .product-information__panel {
+    border-width: 2px;
+    box-shadow: 0 1.4rem 2.8rem -1.8rem color-mix(in srgb, var(--pi-accent) 45%, transparent);
+  }
+
   /* Mobile styles */
   @media screen and (max-width: 749px) {
     .product-information__media {
@@ -148,6 +208,10 @@
 
     .product-details {
       grid-column: 2 / 3;
+    }
+
+    .product-information__panel--details {
+      padding: min(var(--pi-details-padding), 16px);
     }
   }
 
