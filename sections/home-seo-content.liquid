@@ -1,0 +1,24 @@
+<section class="home-seo-content color-{{ section.settings.color_scheme }}">
+  <div class="page-width home-seo-content__inner">
+    <h2>{{ section.settings.title }}</h2>
+    <div class="rte">{{ section.settings.content }}</div>
+  </div>
+</section>
+
+<style>
+.home-seo-content { padding: 36px 0 56px; }
+.home-seo-content__inner { border-top:1px solid rgba(0,0,0,.08); padding-top:24px; }
+.home-seo-content h2 { margin:0 0 12px; }
+</style>
+
+{% schema %}
+{
+  "name":"Home SEO tekst",
+  "settings":[
+    {"type":"color_scheme","id":"color_scheme","label":"Kleurschema","default":"scheme-1"},
+    {"type":"text","id":"title","label":"Titel","default":"Werksokken kopen bij een specialist"},
+    {"type":"richtext","id":"content","label":"Inhoud","default":"<p>Op zoek naar comfortabele en duurzame sokken? In onze specialistische webshop vind je werksokken, merino sokken en functionele modellen voor elk moment van de dag. Dankzij slimme materialen en pasvormen blijven je voeten droog, fris en ondersteund.</p>"}
+  ],
+  "presets":[{"name":"Home SEO tekst"}]
+}
+{% endschema %}

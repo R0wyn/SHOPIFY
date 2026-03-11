@@ -1,0 +1,41 @@
+<section class="home-usp-bar color-{{ section.settings.color_scheme }}" aria-label="USP balk">
+  <div class="page-width home-usp-bar__inner">
+    {% for block in section.blocks %}
+      <div class="home-usp-bar__item" {{ block.shopify_attributes }}>
+        {% if block.settings.icon != blank %}
+          <span class="home-usp-bar__icon" aria-hidden="true">{{ block.settings.icon }}</span>
+        {% endif %}
+        <span>{{ block.settings.text }}</span>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<style>
+  .home-usp-bar { padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,.08); }
+  .home-usp-bar__inner { display: grid; gap: 12px; grid-template-columns: repeat(1,minmax(0,1fr)); }
+  .home-usp-bar__item { display:flex; align-items:center; justify-content:center; gap:8px; font-size: .9rem; font-weight:600; text-align:center; }
+  .home-usp-bar__icon { font-size: 1rem; line-height: 1; }
+  @media (min-width: 750px) { .home-usp-bar__inner { grid-template-columns: repeat(var(--usp-columns,4), minmax(0,1fr)); } }
+</style>
+
+{% schema %}
+{
+  "name": "Home USP-balk",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "Kleurschema", "default": "scheme-1" }
+  ],
+  "blocks": [
+    {
+      "type": "usp",
+      "name": "USP",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icoon (emoji of kort teken)", "default": "✓" },
+        { "type": "text", "id": "text", "label": "Tekst", "default": "Gratis verzending vanaf €50" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [{ "name": "Home USP-balk", "blocks": [{"type":"usp"},{"type":"usp"},{"type":"usp"},{"type":"usp"}] }]
+}
+{% endschema %}

@@ -1,0 +1,64 @@
+<section class="home-tabbed-products color-{{ section.settings.color_scheme }}" data-home-tabs>
+  <div class="page-width">
+    <div class="home-tabbed-products__head">
+      <h2>{{ section.settings.title }}</h2>
+      <div class="home-tabbed-products__tabs" role="tablist" aria-label="Producttabs">
+        <button type="button" role="tab" aria-selected="true" class="is-active" data-tab-target="nieuw">{{ section.settings.tab_one_label }}</button>
+        <button type="button" role="tab" aria-selected="false" data-tab-target="populair">{{ section.settings.tab_two_label }}</button>
+      </div>
+    </div>
+
+    <div class="home-tabbed-products__panel is-active" data-tab-panel="nieuw">
+      {% render 'home-product-grid', collection: section.settings.collection_one, limit: section.settings.limit %}
+    </div>
+    <div class="home-tabbed-products__panel" data-tab-panel="populair" hidden>
+      {% render 'home-product-grid', collection: section.settings.collection_two, limit: section.settings.limit %}
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const root = document.currentScript && document.currentScript.previousElementSibling;
+    if (!root || !root.matches('[data-home-tabs]')) return;
+    root.querySelectorAll('[data-tab-target]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const target = button.dataset.tabTarget;
+        root.querySelectorAll('[data-tab-target]').forEach((btn) => {
+          const active = btn === button;
+          btn.classList.toggle('is-active', active);
+          btn.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        root.querySelectorAll('[data-tab-panel]').forEach((panel) => {
+          const active = panel.dataset.tabPanel === target;
+          panel.hidden = !active;
+          panel.classList.toggle('is-active', active);
+        });
+      });
+    });
+  })();
+</script>
+
+<style>
+.home-tabbed-products { padding: 34px 0; }
+.home-tabbed-products__head { display:flex; justify-content:space-between; gap:12px; align-items:end; margin-bottom:16px; }
+.home-tabbed-products__tabs { display:flex; gap:8px; }
+.home-tabbed-products__tabs button { border:1px solid rgba(0,0,0,.15); background:transparent; border-radius:999px; padding:6px 14px; cursor:pointer; }
+.home-tabbed-products__tabs .is-active { background:rgb(var(--color-foreground)); color:rgb(var(--color-background)); }
+</style>
+
+{% schema %}
+{
+  "name":"Home tab producten",
+  "settings":[
+    {"type":"color_scheme","id":"color_scheme","label":"Kleurschema","default":"scheme-1"},
+    {"type":"text","id":"title","label":"Titel","default":"Nieuw of populair"},
+    {"type":"text","id":"tab_one_label","label":"Label tab 1","default":"Nieuw"},
+    {"type":"collection","id":"collection_one","label":"Collectie tab 1"},
+    {"type":"text","id":"tab_two_label","label":"Label tab 2","default":"Populair"},
+    {"type":"collection","id":"collection_two","label":"Collectie tab 2"},
+    {"type":"range","id":"limit","label":"Aantal producten","min":4,"max":12,"step":1,"default":4}
+  ],
+  "presets":[{"name":"Home tab producten"}]
+}
+{% endschema %}

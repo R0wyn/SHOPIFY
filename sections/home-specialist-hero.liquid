@@ -1,0 +1,48 @@
+<section class="home-specialist-hero color-{{ section.settings.color_scheme }}">
+  <div class="page-width home-specialist-hero__wrap">
+    <div class="home-specialist-hero__content">
+      {% if section.settings.eyebrow != blank %}<p class="home-specialist-hero__eyebrow">{{ section.settings.eyebrow }}</p>{% endif %}
+      <h1>{{ section.settings.heading }}</h1>
+      {% if section.settings.subheading != blank %}<p class="home-specialist-hero__subheading">{{ section.settings.subheading }}</p>{% endif %}
+      <div class="home-specialist-hero__actions">
+        {% for block in section.blocks %}
+          <a class="button {% if forloop.first %}button-primary{% else %}button-secondary{% endif %}" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+        {% endfor %}
+      </div>
+    </div>
+    {% if section.settings.image != blank %}
+      <div class="home-specialist-hero__media">
+        {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'eager', alt: section.settings.image.alt | escape }}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .home-specialist-hero { padding: 40px 0; }
+  .home-specialist-hero__wrap { display:grid; gap:24px; align-items:center; }
+  .home-specialist-hero__eyebrow { text-transform: uppercase; letter-spacing:.08em; font-size:.78rem; margin:0 0 8px; opacity:.7; }
+  .home-specialist-hero h1 { margin:0 0 12px; font-size: clamp(1.8rem, 4vw, 3rem); }
+  .home-specialist-hero__subheading { margin:0; max-width:60ch; }
+  .home-specialist-hero__actions { margin-top:20px; display:flex; flex-wrap:wrap; gap:12px; }
+  .home-specialist-hero__media img { width:100%; height:auto; border-radius:16px; box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+  @media(min-width:990px){ .home-specialist-hero__wrap { grid-template-columns: 1.1fr .9fr; gap:40px; } }
+</style>
+
+{% schema %}
+{
+  "name": "Home specialist hero",
+  "settings": [
+    {"type":"color_scheme","id":"color_scheme","label":"Kleurschema","default":"scheme-1"},
+    {"type":"text","id":"eyebrow","label":"Eyebrow","default":"Specialist in performance sokken"},
+    {"type":"text","id":"heading","label":"Titel","default":"Sokken die comfort en prestaties samenbrengen"},
+    {"type":"textarea","id":"subheading","label":"Subtitel","default":"Ontdek ons specialistische assortiment voor werk, wandelen, sport en dagelijks gebruik."},
+    {"type":"image_picker","id":"image","label":"Afbeelding"}
+  ],
+  "blocks":[
+    {"type":"cta","name":"CTA knop","settings":[{"type":"text","id":"label","label":"Label","default":"Shop heren"},{"type":"url","id":"link","label":"Link"}]}
+  ],
+  "max_blocks": 2,
+  "presets":[{"name":"Home specialist hero","blocks":[{"type":"cta"},{"type":"cta","settings":{"label":"Shop dames"}}]}]
+}
+{% endschema %}

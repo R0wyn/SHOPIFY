@@ -6,285 +6,107 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
-    "hero_jVaWmY": {
-      "type": "hero",
+    "home_usp": {
+      "type": "home-usp-bar",
       "blocks": {
-        "text_YLPk4p": {
-          "type": "text",
-          "name": "t:names.heading",
-          "settings": {
-            "text": "<p>Browse our latest products</p>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground-heading)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "button_H9gpTf": {
-          "type": "button",
-          "name": "t:names.button",
-          "settings": {
-            "label": "Shop all",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button-secondary",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
-        }
+        "usp_1": { "type": "usp", "settings": { "icon": "✓", "text": "Gratis verzending vanaf €50" } },
+        "usp_2": { "type": "usp", "settings": { "icon": "🧦", "text": "Specialist in merino en werksokken" } },
+        "usp_3": { "type": "usp", "settings": { "icon": "⚡", "text": "Snelle levering uit eigen voorraad" } },
+        "usp_4": { "type": "usp", "settings": { "icon": "🌱", "text": "Duurzaam verpakt verzonden" } }
       },
-      "block_order": [
-        "text_YLPk4p",
-        "button_H9gpTf"
-      ],
-      "name": "t:names.hero",
+      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
+      "settings": { "color_scheme": "scheme-1" }
+    },
+    "hero": {
+      "type": "home-specialist-hero",
+      "blocks": {
+        "cta_1": { "type": "cta", "settings": { "label": "Shop heren", "link": "shopify://collections/heren" } },
+        "cta_2": { "type": "cta", "settings": { "label": "Shop dames", "link": "shopify://collections/dames" } }
+      },
+      "block_order": ["cta_1", "cta_2"],
       "settings": {
-        "media_type_1": "image",
-        "media_type_2": "image",
-        "stack_media_on_mobile": false,
-        "custom_mobile_media": false,
-        "media_type_1_mobile": "image",
-        "media_type_2_mobile": "image",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": true,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 24,
-        "section_width": "page-width",
-        "section_height": "medium",
-        "section_height_custom": 50,
-        "color_scheme": "scheme-6",
-        "toggle_overlay": true,
-        "overlay_color": "#12121266",
-        "overlay_style": "solid",
-        "gradient_direction": "to bottom",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 100,
-        "padding-block-end": 72
+        "color_scheme": "scheme-1",
+        "eyebrow": "Technische en comfortabele sokken",
+        "heading": "De specialistische sokkenwebshop voor werk, wandelingen en dagelijks comfort",
+        "subheading": "Van merino wollen sokken tot ademende werksokken: vind snel het juiste model op basis van materiaal, functie en technologie."
       }
     },
-    "product_list_fa6P9H": {
-      "type": "product-list",
-      "blocks": {
-        "static-header": {
-          "type": "_product-list-content",
-          "name": "t:names.header",
-          "static": true,
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": false,
-            "horizontal_alignment": "space-between",
-            "vertical_alignment": "flex-end",
-            "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_list_text_YFtzcL": {
-              "type": "_product-list-text",
-              "name": "t:names.collection_title",
-              "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_list_button_MWeP9V": {
-              "type": "_product-list-button",
-              "name": "t:names.product_list_button",
-              "settings": {
-                "label": "View all",
-                "open_in_new_tab": false,
-                "style_class": "link",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_list_text_YFtzcL",
-            "product_list_button_MWeP9V"
-          ]
-        },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
-          "settings": {
-            "product_card_gap": 4,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_677WP3": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_YXxMTj": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_JQzVV4": {
-              "type": "price",
-              "name": "t:names.product_price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "color": "var(--color-foreground)",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_677WP3",
-            "product_title_YXxMTj",
-            "price_JQzVV4"
-          ]
-        }
-      },
-      "name": "Featured collection",
+    "hardlopers": {
+      "type": "home-product-carousel",
       "settings": {
-        "collection": "all",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 8,
-        "columns": 4,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "horizontal_alignment": "flex-start",
-        "gap": 28,
         "color_scheme": "scheme-1",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "title": "Onze hardlopers",
+        "collection": "all",
+        "link_label": "Bekijk alle hardlopers",
+        "limit": 8
+      }
+    },
+    "cta_tiles": {
+      "type": "home-category-tiles",
+      "blocks": {
+        "tile_1": { "type": "tile", "settings": { "title": "Wollen werksokken", "button_label": "Nu shoppen" } },
+        "tile_2": { "type": "tile", "settings": { "title": "Katoenen werksokken", "button_label": "Nu shoppen" } },
+        "tile_3": { "type": "tile", "settings": { "title": "Wandelsokken", "button_label": "Nu shoppen" } }
+      },
+      "block_order": ["tile_1", "tile_2", "tile_3"],
+      "settings": { "color_scheme": "scheme-1", "title": "Snel naar jouw categorie" }
+    },
+    "category_grid": {
+      "type": "home-category-grid",
+      "blocks": {
+        "cat_1": { "type": "category", "settings": { "title": "Thermo werksokken", "button_label": "Bekijk categorie" } },
+        "cat_2": { "type": "category", "settings": { "title": "Merino sokken", "button_label": "Bekijk categorie" } },
+        "cat_3": { "type": "category", "settings": { "title": "Kniekousen", "button_label": "Bekijk categorie" } },
+        "cat_4": { "type": "category", "settings": { "title": "Footies", "button_label": "Bekijk categorie" } },
+        "cat_5": { "type": "category", "settings": { "title": "Koele werksokken", "button_label": "Bekijk categorie" } },
+        "cat_6": { "type": "category", "settings": { "title": "Verstevigde werksokken", "button_label": "Bekijk categorie" } }
+      },
+      "block_order": ["cat_1", "cat_2", "cat_3", "cat_4", "cat_5", "cat_6"],
+      "settings": { "color_scheme": "scheme-1", "title": "Ontdek op functie en toepassing" }
+    },
+    "nieuw_populair": {
+      "type": "home-tabbed-products",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "title": "Nieuw of populair",
+        "tab_one_label": "Nieuw",
+        "collection_one": "all",
+        "tab_two_label": "Populair",
+        "collection_two": "all",
+        "limit": 4
+      }
+    },
+    "merken": {
+      "type": "home-brand-logos",
+      "blocks": {
+        "brand_1": { "type": "brand", "settings": { "name": "MerinoPro" } },
+        "brand_2": { "type": "brand", "settings": { "name": "WorkShield" } },
+        "brand_3": { "type": "brand", "settings": { "name": "TrailFeet" } },
+        "brand_4": { "type": "brand", "settings": { "name": "DailyStep" } }
+      },
+      "block_order": ["brand_1", "brand_2", "brand_3", "brand_4"],
+      "settings": { "color_scheme": "scheme-1", "title": "Shop op merk" }
+    },
+    "seo": {
+      "type": "home-seo-content",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "title": "Merino sokken kopen en werksokken kiezen met specialistisch advies",
+        "content": "<p>Ben je op zoek naar sokken die niet afzakken, lang meegaan en je voeten comfortabel houden tijdens werk of vrije tijd? In onze specialistische webshop vind je een zorgvuldig samengesteld aanbod aan merino sokken, werksokken, wandelsokken en functionele modellen met technologieën zoals naadloos breiwerk, antibacteriële garens en extra versteviging. Zo kies je eenvoudig de juiste sok op basis van pasvorm, materiaal en gebruiksmoment.</p><p>Dankzij onze duidelijke categorie-indeling op geslacht, model, materiaal en functie shop je sneller en gerichter. Of je nu warme thermo werksokken nodig hebt voor koude omstandigheden, ademende sokken voor lange dagen op de werkvloer of stevige wandelmodellen voor buitenactiviteiten: hier vind je betrouwbare kwaliteit met specialistische focus.</p>"
       }
     }
   },
   "order": [
-    "hero_jVaWmY",
-    "product_list_fa6P9H"
+    "home_usp",
+    "hero",
+    "hardlopers",
+    "cta_tiles",
+    "category_grid",
+    "nieuw_populair",
+    "merken",
+    "seo"
   ]
 }
