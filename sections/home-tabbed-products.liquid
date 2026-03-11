@@ -1,3 +1,18 @@
+<section class="home-tabbed-products color-{{ section.settings.color_scheme }}" id="home-tabbed-products-{{ section.id }}" data-home-tabs>
+  <div class="page-width">
+    <div class="home-tabbed-products__head{% if section.settings.center_heading %} is-centered{% endif %}">
+      <h2>{{ section.settings.title }}</h2>
+      <div class="home-tabbed-products__tabs" role="tablist" aria-label="Producttabs">
+        <button type="button" role="tab" aria-selected="true" class="is-active" data-tab-target="nieuw-{{ section.id }}">{{ section.settings.tab_one_label }}</button>
+        <button type="button" role="tab" aria-selected="false" data-tab-target="populair-{{ section.id }}">{{ section.settings.tab_two_label }}</button>
+      </div>
+    </div>
+
+    <div class="home-tabbed-products__panel is-active" data-tab-panel="nieuw-{{ section.id }}">
+      {% render 'home-product-grid', collection: section.settings.collection_one, limit: section.settings.limit, show_vendor: section.settings.show_vendor, show_sale_badge: section.settings.show_sale_badge %}
+    </div>
+    <div class="home-tabbed-products__panel" data-tab-panel="populair-{{ section.id }}" hidden>
+      {% render 'home-product-grid', collection: section.settings.collection_two, limit: section.settings.limit, show_vendor: section.settings.show_vendor, show_sale_badge: section.settings.show_sale_badge %}
 <section class="home-tabbed-products color-{{ section.settings.color_scheme }}" data-home-tabs>
   <div class="page-width">
     <div class="home-tabbed-products__head">
@@ -19,6 +34,8 @@
 
 <script>
   (() => {
+    const root = document.getElementById('home-tabbed-products-{{ section.id }}');
+    if (!root) return;
     const root = document.currentScript && document.currentScript.previousElementSibling;
     if (!root || !root.matches('[data-home-tabs]')) return;
     root.querySelectorAll('[data-tab-target]').forEach((button) => {
@@ -40,6 +57,12 @@
 </script>
 
 <style>
+#home-tabbed-products-{{ section.id }} { padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px; }
+#home-tabbed-products-{{ section.id }} .home-tabbed-products__head { display:flex; justify-content:space-between; gap:12px; align-items:end; margin-bottom:16px; }
+#home-tabbed-products-{{ section.id }} .home-tabbed-products__head.is-centered { flex-direction:column; align-items:center; text-align:center; }
+#home-tabbed-products-{{ section.id }} .home-tabbed-products__tabs { display:flex; gap:8px; }
+#home-tabbed-products-{{ section.id }} .home-tabbed-products__tabs button { border:1px solid rgba(0,0,0,.15); background:transparent; border-radius:999px; padding:6px 14px; cursor:pointer; }
+#home-tabbed-products-{{ section.id }} .home-tabbed-products__tabs .is-active { background:rgb(var(--color-foreground)); color:rgb(var(--color-background)); }
 .home-tabbed-products { padding: 34px 0; }
 .home-tabbed-products__head { display:flex; justify-content:space-between; gap:12px; align-items:end; margin-bottom:16px; }
 .home-tabbed-products__tabs { display:flex; gap:8px; }
@@ -53,10 +76,16 @@
   "settings":[
     {"type":"color_scheme","id":"color_scheme","label":"Kleurschema","default":"scheme-1"},
     {"type":"text","id":"title","label":"Titel","default":"Nieuw of populair"},
+    {"type":"checkbox","id":"center_heading","label":"Kop centreren","default": true},
     {"type":"text","id":"tab_one_label","label":"Label tab 1","default":"Nieuw"},
     {"type":"collection","id":"collection_one","label":"Collectie tab 1"},
     {"type":"text","id":"tab_two_label","label":"Label tab 2","default":"Populair"},
     {"type":"collection","id":"collection_two","label":"Collectie tab 2"},
+    {"type":"checkbox","id":"show_vendor","label":"Toon merk","default": true},
+    {"type":"checkbox","id":"show_sale_badge","label":"Toon sale badge","default": true},
+    {"type":"range","id":"limit","label":"Aantal producten","min":4,"max":12,"step":1,"default":4},
+    {"type":"range","id":"padding_top","label":"Padding boven","min":0,"max":120,"step":4,"default":34},
+    {"type":"range","id":"padding_bottom","label":"Padding onder","min":0,"max":120,"step":4,"default":34}
     {"type":"range","id":"limit","label":"Aantal producten","min":4,"max":12,"step":1,"default":4}
   ],
   "presets":[{"name":"Home tab producten"}]
