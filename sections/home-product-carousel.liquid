@@ -1,0 +1,64 @@
+<section class="home-product-carousel color-{{ section.settings.color_scheme }}" id="home-product-carousel-{{ section.id }}">
+  <div class="page-width">
+    <div class="home-product-carousel__head{% if section.settings.center_heading %} is-centered{% endif %}">
+      <h2>{{ section.settings.title }}</h2>
+      {% if section.settings.collection != blank and section.settings.link_label != blank %}
+        <a href="{{ section.settings.collection.url }}" class="link">{{ section.settings.link_label }}</a>
+      {% endif %}
+    </div>
+    <div class="home-product-carousel__track" role="list">
+      {% for product in section.settings.collection.products limit: section.settings.limit %}
+        <article class="home-product-carousel__card" role="listitem">
+          <a href="{{ product.url }}" class="home-product-carousel__image-wrap">
+            {% if section.settings.show_sale_badge and product.compare_at_price > product.price %}<span class="badge">Sale</span>{% endif %}
+            {{ product.featured_image | image_url: width: 640 | image_tag: loading: 'lazy', alt: product.featured_image.alt | default: product.title | escape }}
+          </a>
+          {% if section.settings.show_vendor %}<p class="home-product-carousel__vendor">{{ product.vendor }}</p>{% endif %}
+          <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
+          <div>{% render 'price', product: product %}</div>
+        </article>
+      {% else %}
+        <p>Kies een collectie in de section-instellingen om producten te tonen.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+#home-product-carousel-{{ section.id }} { padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px; }
+#home-product-carousel-{{ section.id }} .home-product-carousel__head { display:flex; justify-content:space-between; gap:16px; align-items:end; margin-bottom:16px; }
+#home-product-carousel-{{ section.id }} .home-product-carousel__head.is-centered { justify-content:center; text-align:center; flex-direction:column; align-items:center; }
+#home-product-carousel-{{ section.id }} .home-product-carousel__head h2 { margin:0; }
+#home-product-carousel-{{ section.id }} .home-product-carousel__track { display:grid; grid-auto-flow:column; grid-auto-columns:minmax(220px, calc((100% - {{ section.settings.gap }}px * ({{ section.settings.desktop_cards }} - 1)) / {{ section.settings.desktop_cards }})); gap:{{ section.settings.gap }}px; overflow:auto; scroll-snap-type:x mandatory; padding-bottom:8px; }
+#home-product-carousel-{{ section.id }} .home-product-carousel__card { scroll-snap-align:start; border:1px solid rgba(0,0,0,.08); border-radius:14px; padding:10px; background:rgb(var(--color-background)); }
+#home-product-carousel-{{ section.id }} .home-product-carousel__image-wrap { position:relative; display:block; }
+#home-product-carousel-{{ section.id }} .home-product-carousel__image-wrap img { width:100%; height:auto; border-radius:10px; }
+#home-product-carousel-{{ section.id }} .home-product-carousel__vendor { margin:10px 0 4px; font-size:.8rem; text-transform:uppercase; opacity:.65; }
+#home-product-carousel-{{ section.id }} .home-product-carousel__card h3 { margin:0 0 8px; font-size:1rem; }
+#home-product-carousel-{{ section.id }} .badge { position:absolute; top:8px; left:8px; background:#d21f3c; color:#fff; padding:2px 8px; border-radius:999px; font-size:.72rem; }
+@media(max-width:989px){
+  #home-product-carousel-{{ section.id }} .home-product-carousel__track { grid-auto-columns:minmax(190px, calc((100% - {{ section.settings.gap }}px * ({{ section.settings.mobile_cards }} - 1)) / {{ section.settings.mobile_cards }})); }
+}
+</style>
+
+{% schema %}
+{
+  "name":"Home productcarousel",
+  "settings":[
+    {"type":"color_scheme","id":"color_scheme","label":"Kleurschema","default":"scheme-1"},
+    {"type":"text","id":"title","label":"Titel","default":"Onze hardlopers"},
+    {"type":"checkbox","id":"center_heading","label":"Kop centreren","default": false},
+    {"type":"collection","id":"collection","label":"Collectie"},
+    {"type":"text","id":"link_label","label":"Link label","default":"Bekijk alles"},
+    {"type":"checkbox","id":"show_vendor","label":"Toon merk","default": true},
+    {"type":"checkbox","id":"show_sale_badge","label":"Toon sale badge","default": true},
+    {"type":"range","id":"limit","label":"Aantal producten","min":4,"max":16,"step":1,"default":8},
+    {"type":"range","id":"desktop_cards","label":"Kaarten op desktop","min":3,"max":5,"step":1,"default":4},
+    {"type":"range","id":"mobile_cards","label":"Kaarten op mobiel","min":1,"max":2,"step":1,"default":1},
+    {"type":"range","id":"gap","label":"Ruimte tussen kaarten","min":8,"max":28,"step":2,"default":16},
+    {"type":"range","id":"padding_top","label":"Padding boven","min":0,"max":120,"step":4,"default":36},
+    {"type":"range","id":"padding_bottom","label":"Padding onder","min":0,"max":120,"step":4,"default":36}
+  ],
+  "presets":[{"name":"Home productcarousel"}]
+}
+{% endschema %}

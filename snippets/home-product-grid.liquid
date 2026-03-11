@@ -1,0 +1,25 @@
+<div class="home-product-grid" role="list">
+  {% for product in collection.products limit: limit %}
+    <article class="home-product-grid__card" role="listitem">
+      <a href="{{ product.url }}" class="home-product-grid__image-wrap">
+        {% if show_sale_badge and product.compare_at_price > product.price %}<span class="badge">Sale</span>{% endif %}
+        {{ product.featured_image | image_url: width: 520 | image_tag: loading: 'lazy', alt: product.featured_image.alt | default: product.title | escape }}
+      </a>
+      {% if show_vendor %}<p class="home-product-grid__vendor">{{ product.vendor }}</p>{% endif %}
+      <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
+      {% render 'price', product: product %}
+    </article>
+  {% else %}
+    <p>Kies een collectie om producten weer te geven.</p>
+  {% endfor %}
+</div>
+
+<style>
+.home-product-grid { display:grid; gap:16px; grid-template-columns:repeat(2,minmax(0,1fr)); }
+.home-product-grid__card { border:1px solid rgba(0,0,0,.08); border-radius:14px; padding:10px; }
+.home-product-grid__image-wrap { position:relative; display:block; }
+.home-product-grid__image-wrap img { width:100%; height:auto; border-radius:10px; }
+.home-product-grid__vendor { margin:8px 0 4px; font-size:.78rem; opacity:.7; text-transform:uppercase; }
+.home-product-grid__card h3 { margin:0 0 8px; font-size:1rem; }
+@media(min-width:990px){ .home-product-grid { grid-template-columns:repeat(4,minmax(0,1fr)); } }
+</style>

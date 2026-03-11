@@ -1,0 +1,49 @@
+<section class="home-category-grid color-{{ section.settings.color_scheme }}" id="home-category-grid-{{ section.id }}">
+  <div class="page-width">
+    <h2 class="{% if section.settings.center_heading %}is-centered{% endif %}">{{ section.settings.title }}</h2>
+    <div class="home-category-grid__grid">
+      {% for block in section.blocks %}
+        <article class="home-category-grid__card" {{ block.shopify_attributes }}>
+          {% if block.settings.image != blank %}
+            <a href="{{ block.settings.link | default: '#' }}">{{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', alt: block.settings.title | escape }}</a>
+          {% endif %}
+          <div class="home-category-grid__body">
+            <h3>{{ block.settings.title }}</h3>
+            <a class="link" href="{{ block.settings.link | default: '#' }}">{{ block.settings.button_label }}</a>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+#home-category-grid-{{ section.id }} { padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px; }
+#home-category-grid-{{ section.id }} h2 { margin:0 0 16px; }
+#home-category-grid-{{ section.id }} h2.is-centered { text-align:center; }
+#home-category-grid-{{ section.id }} .home-category-grid__grid { display:grid; gap:{{ section.settings.gap }}px; grid-template-columns:repeat({{ section.settings.columns_mobile }},minmax(0,1fr)); }
+#home-category-grid-{{ section.id }} .home-category-grid__card { border:1px solid rgba(0,0,0,.08); border-radius:14px; overflow:hidden; background:rgb(var(--color-background)); }
+#home-category-grid-{{ section.id }} .home-category-grid__card img { width:100%; height:auto; aspect-ratio:4/3; object-fit:cover; }
+#home-category-grid-{{ section.id }} .home-category-grid__body { padding:12px; }
+#home-category-grid-{{ section.id }} .home-category-grid__body h3 { margin:0 0 8px; font-size:1rem; }
+@media(min-width:990px){ #home-category-grid-{{ section.id }} .home-category-grid__grid { grid-template-columns:repeat({{ section.settings.columns_desktop }},minmax(0,1fr)); } }
+</style>
+
+{% schema %}
+{
+  "name":"Home categorie-overzicht",
+  "settings":[
+    {"type":"color_scheme","id":"color_scheme","label":"Kleurschema","default":"scheme-1"},
+    {"type":"text","id":"title","label":"Titel","default":"Populaire categorieën"},
+    {"type":"checkbox","id":"center_heading","label":"Titel centreren","default": true},
+    {"type":"range","id":"columns_mobile","label":"Kolommen mobiel","min":1,"max":2,"step":1,"default":2},
+    {"type":"range","id":"columns_desktop","label":"Kolommen desktop","min":3,"max":4,"step":1,"default":3},
+    {"type":"range","id":"gap","label":"Ruimte tussen kaarten","min":8,"max":24,"step":2,"default":16},
+    {"type":"range","id":"padding_top","label":"Padding boven","min":0,"max":120,"step":4,"default":20},
+    {"type":"range","id":"padding_bottom","label":"Padding onder","min":0,"max":120,"step":4,"default":36}
+  ],
+  "blocks":[{"type":"category","name":"Categoriekaart","settings":[{"type":"image_picker","id":"image","label":"Afbeelding"},{"type":"text","id":"title","label":"Titel","default":"Thermo werksokken"},{"type":"text","id":"button_label","label":"Knoptekst","default":"Bekijk categorie"},{"type":"url","id":"link","label":"Link"}]}],
+  "max_blocks": 16,
+  "presets":[{"name":"Home categorie-overzicht"}]
+}
+{% endschema %}
