@@ -23,6 +23,15 @@ body {
   --surface-transition-timing: var(--ease-out-quad);
   --submenu-animation-speed: 360ms;
   --submenu-animation-easing: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+  /* Easy-to-tune brand layer */
+  --brand-gradient: radial-gradient(circle at 20% 0%, #f5e9ff 0%, #f8fbff 38%, #fff7f1 100%);
+  --brand-surface: rgb(255 255 255 / 84%);
+  --brand-surface-strong: rgb(255 255 255 / 94%);
+  --brand-border: rgb(29 25 55 / 8%);
+  --brand-shadow: 0 12px 32px rgb(21 18 39 / 10%);
+  --brand-shadow-hover: 0 16px 38px rgb(21 18 39 / 16%);
+  --brand-radius: clamp(14px, 1.6vw, 24px);
 }
 
 html {
@@ -4942,5 +4951,61 @@ product-recommendations:has([data-has-recommendations='false']) {
   to {
     opacity: var(--atc-opacity, 1);
     translate: 0px var(--atc-destination, 0px);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Custom visual style (kept variable-driven so it's easy to retheme)
+   -------------------------------------------------------------------------- */
+body {
+  background: var(--brand-gradient);
+}
+
+#shopify-section-header,
+.header-section {
+  backdrop-filter: blur(10px);
+}
+
+.section,
+.cart-summary,
+.drawer,
+.popover,
+.product-card,
+.collection-card,
+.resource-card,
+.predictive-search-results__card {
+  border: 1px solid var(--brand-border);
+  border-radius: var(--brand-radius);
+  background: var(--brand-surface);
+  box-shadow: var(--brand-shadow);
+}
+
+.button,
+.button-secondary {
+  border-radius: max(var(--style-border-radius-buttons-primary), 999px);
+  letter-spacing: 0.01em;
+}
+
+.button:not(.button-secondary, .button-unstyled) {
+  box-shadow: 0 10px 24px rgb(var(--color-primary-button-background-rgb) / 28%);
+}
+
+@media (any-pointer: fine) {
+  .product-card:hover,
+  .collection-card:hover,
+  .resource-card:hover,
+  .predictive-search-results__card:hover,
+  .button:hover,
+  .button-secondary:hover {
+    box-shadow: var(--brand-shadow-hover);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .section,
+  .cart-summary,
+  .drawer,
+  .popover {
+    border-radius: clamp(12px, 4vw, 18px);
   }
 }
