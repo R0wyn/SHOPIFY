@@ -1,0 +1,39 @@
+<section class="home-category-grid color-{{ section.settings.color_scheme }}">
+  <div class="page-width">
+    <h2>{{ section.settings.title }}</h2>
+    <div class="home-category-grid__grid">
+      {% for block in section.blocks %}
+        <article class="home-category-grid__card" {{ block.shopify_attributes }}>
+          {% if block.settings.image != blank %}
+            <a href="{{ block.settings.link | default: '#' }}">{{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: block.settings.title | escape }}</a>
+          {% endif %}
+          <div class="home-category-grid__body">
+            <h3>{{ block.settings.title }}</h3>
+            <a class="link" href="{{ block.settings.link | default: '#' }}">{{ block.settings.button_label }}</a>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+.home-category-grid { padding: 20px 0 36px; }
+.home-category-grid h2 { margin:0 0 16px; }
+.home-category-grid__grid { display:grid; gap:16px; grid-template-columns:repeat(2,minmax(0,1fr)); }
+.home-category-grid__card { border:1px solid rgba(0,0,0,.08); border-radius:14px; overflow:hidden; background:rgb(var(--color-background)); }
+.home-category-grid__card img { width:100%; height:auto; aspect-ratio:4/3; object-fit:cover; }
+.home-category-grid__body { padding:12px; }
+.home-category-grid__body h3 { margin:0 0 8px; font-size:1rem; }
+@media(min-width:990px){ .home-category-grid__grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+</style>
+
+{% schema %}
+{
+  "name":"Home categorie-overzicht",
+  "settings":[{"type":"color_scheme","id":"color_scheme","label":"Kleurschema","default":"scheme-1"},{"type":"text","id":"title","label":"Titel","default":"Populaire categorieën"}],
+  "blocks":[{"type":"category","name":"Categoriekaart","settings":[{"type":"image_picker","id":"image","label":"Afbeelding"},{"type":"text","id":"title","label":"Titel","default":"Thermo werksokken"},{"type":"text","id":"button_label","label":"Knoptekst","default":"Bekijk categorie"},{"type":"url","id":"link","label":"Link"}]}],
+  "max_blocks": 12,
+  "presets":[{"name":"Home categorie-overzicht"}]
+}
+{% endschema %}

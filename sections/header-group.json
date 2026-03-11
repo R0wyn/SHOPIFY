@@ -14,10 +14,49 @@
     "header_announcements_9jGBFp": {
       "type": "header-announcements",
       "blocks": {
-        "announcement_BxgCk9": {
+        "usp1": {
           "type": "_announcement",
           "settings": {
-            "text": "Welcome to our store",
+            "text": "Gratis verzending vanaf €50",
+            "link": "",
+            "font": "var(--font-subheading--family)",
+            "font_size": "0.75rem",
+            "weight": "",
+            "letter_spacing": "normal",
+            "case": "none"
+          },
+          "blocks": {}
+        },
+        "usp2": {
+          "type": "_announcement",
+          "settings": {
+            "text": "Specialist in merino sokken",
+            "link": "",
+            "font": "var(--font-subheading--family)",
+            "font_size": "0.75rem",
+            "weight": "",
+            "letter_spacing": "normal",
+            "case": "none"
+          },
+          "blocks": {}
+        },
+        "usp3": {
+          "type": "_announcement",
+          "settings": {
+            "text": "Voor 23:59 besteld, snel in huis",
+            "link": "",
+            "font": "var(--font-subheading--family)",
+            "font_size": "0.75rem",
+            "weight": "",
+            "letter_spacing": "normal",
+            "case": "none"
+          },
+          "blocks": {}
+        },
+        "usp4": {
+          "type": "_announcement",
+          "settings": {
+            "text": "Duurzaam verpakt verzonden",
             "link": "",
             "font": "var(--font-subheading--family)",
             "font_size": "0.75rem",
@@ -29,7 +68,10 @@
         }
       },
       "block_order": [
-        "announcement_BxgCk9"
+        "usp1",
+        "usp2",
+        "usp3",
+        "usp4"
       ],
       "name": "t:names.announcement_bar",
       "settings": {
