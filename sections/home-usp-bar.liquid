@@ -1,4 +1,5 @@
 <section class="home-usp-bar color-{{ section.settings.color_scheme }}" id="home-usp-bar-{{ section.id }}" aria-label="USP balk">
+<section class="home-usp-bar color-{{ section.settings.color_scheme }}" aria-label="USP balk">
   <div class="page-width home-usp-bar__inner">
     {% for block in section.blocks %}
       <div class="home-usp-bar__item" {{ block.shopify_attributes }}>
@@ -17,6 +18,11 @@
   #home-usp-bar-{{ section.id }} .home-usp-bar__item { display:flex; align-items:center; justify-content:center; gap:8px; font-size: .9rem; font-weight:600; text-align:center; }
   #home-usp-bar-{{ section.id }} .home-usp-bar__icon { font-size: 1rem; line-height: 1; }
   @media (min-width: 750px) { #home-usp-bar-{{ section.id }} .home-usp-bar__inner { grid-template-columns: repeat({{ section.settings.columns_desktop }}, minmax(0,1fr)); } }
+  .home-usp-bar { padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,.08); }
+  .home-usp-bar__inner { display: grid; gap: 12px; grid-template-columns: repeat(1,minmax(0,1fr)); }
+  .home-usp-bar__item { display:flex; align-items:center; justify-content:center; gap:8px; font-size: .9rem; font-weight:600; text-align:center; }
+  .home-usp-bar__icon { font-size: 1rem; line-height: 1; }
+  @media (min-width: 750px) { .home-usp-bar__inner { grid-template-columns: repeat(var(--usp-columns,4), minmax(0,1fr)); } }
 </style>
 
 {% schema %}
@@ -27,6 +33,7 @@
     { "type": "range", "id": "columns_desktop", "label": "Kolommen desktop", "min": 2, "max": 4, "step": 1, "default": 4 },
     { "type": "range", "id": "padding_top", "label": "Padding boven", "min": 0, "max": 30, "step": 2, "default": 10 },
     { "type": "range", "id": "padding_bottom", "label": "Padding onder", "min": 0, "max": 30, "step": 2, "default": 10 }
+    { "type": "color_scheme", "id": "color_scheme", "label": "Kleurschema", "default": "scheme-1" }
   ],
   "blocks": [
     {

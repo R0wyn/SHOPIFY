@@ -1,5 +1,7 @@
 <section class="home-seo-content color-{{ section.settings.color_scheme }}" id="home-seo-content-{{ section.id }}">
   <div class="page-width home-seo-content__inner{% if section.settings.center_heading %} is-centered{% endif %}">
+<section class="home-seo-content color-{{ section.settings.color_scheme }}">
+  <div class="page-width home-seo-content__inner">
     <h2>{{ section.settings.title }}</h2>
     <div class="rte">{{ section.settings.content }}</div>
   </div>
@@ -10,6 +12,9 @@
 #home-seo-content-{{ section.id }} .home-seo-content__inner { border-top:1px solid rgba(0,0,0,.08); padding-top:24px; max-width: {{ section.settings.content_max_width }}px; }
 #home-seo-content-{{ section.id }} .home-seo-content__inner.is-centered { margin: 0 auto; text-align:center; }
 #home-seo-content-{{ section.id }} h2 { margin:0 0 12px; }
+.home-seo-content { padding: 36px 0 56px; }
+.home-seo-content__inner { border-top:1px solid rgba(0,0,0,.08); padding-top:24px; }
+.home-seo-content h2 { margin:0 0 12px; }
 </style>
 
 {% schema %}
@@ -23,6 +28,8 @@
     {"type":"richtext","id":"content","label":"Inhoud","default":"<p>Op zoek naar comfortabele en duurzame sokken? In onze specialistische webshop vind je werksokken, merino sokken en functionele modellen voor elk moment van de dag. Dankzij slimme materialen en pasvormen blijven je voeten droog, fris en ondersteund.</p>"},
     {"type":"range","id":"padding_top","label":"Padding boven","min":0,"max":120,"step":4,"default":36},
     {"type":"range","id":"padding_bottom","label":"Padding onder","min":0,"max":120,"step":4,"default":56}
+    {"type":"text","id":"title","label":"Titel","default":"Werksokken kopen bij een specialist"},
+    {"type":"richtext","id":"content","label":"Inhoud","default":"<p>Op zoek naar comfortabele en duurzame sokken? In onze specialistische webshop vind je werksokken, merino sokken en functionele modellen voor elk moment van de dag. Dankzij slimme materialen en pasvormen blijven je voeten droog, fris en ondersteund.</p>"}
   ],
   "presets":[{"name":"Home SEO tekst"}]
 }

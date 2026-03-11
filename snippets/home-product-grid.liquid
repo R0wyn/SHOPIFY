@@ -6,6 +6,10 @@
         {{ product.featured_image | image_url: width: 520 | image_tag: loading: 'lazy', alt: product.featured_image.alt | default: product.title | escape }}
       </a>
       {% if show_vendor %}<p class="home-product-grid__vendor">{{ product.vendor }}</p>{% endif %}
+        {% if product.compare_at_price > product.price %}<span class="badge">Sale</span>{% endif %}
+        {{ product.featured_image | image_url: width: 520 | image_tag: loading: 'lazy', alt: product.featured_image.alt | escape }}
+      </a>
+      <p class="home-product-grid__vendor">{{ product.vendor }}</p>
       <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
       {% render 'price', product: product %}
     </article>

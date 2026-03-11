@@ -3,6 +3,11 @@
     <div class="home-product-carousel__head{% if section.settings.center_heading %} is-centered{% endif %}">
       <h2>{{ section.settings.title }}</h2>
       {% if section.settings.collection != blank and section.settings.link_label != blank %}
+<section class="home-product-carousel color-{{ section.settings.color_scheme }}">
+  <div class="page-width">
+    <div class="home-product-carousel__head">
+      <h2>{{ section.settings.title }}</h2>
+      {% if section.settings.collection != blank %}
         <a href="{{ section.settings.collection.url }}" class="link">{{ section.settings.link_label }}</a>
       {% endif %}
     </div>
@@ -14,6 +19,10 @@
             {{ product.featured_image | image_url: width: 640 | image_tag: loading: 'lazy', alt: product.featured_image.alt | default: product.title | escape }}
           </a>
           {% if section.settings.show_vendor %}<p class="home-product-carousel__vendor">{{ product.vendor }}</p>{% endif %}
+            {% if product.compare_at_price > product.price %}<span class="badge">Sale</span>{% endif %}
+            {{ product.featured_image | image_url: width: 640 | image_tag: loading: 'lazy', alt: product.featured_image.alt | escape }}
+          </a>
+          <p class="home-product-carousel__vendor">{{ product.vendor }}</p>
           <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
           <div>{% render 'price', product: product %}</div>
         </article>
@@ -39,6 +48,17 @@
 @media(max-width:989px){
   #home-product-carousel-{{ section.id }} .home-product-carousel__track { grid-auto-columns:minmax(190px, calc((100% - {{ section.settings.gap }}px * ({{ section.settings.mobile_cards }} - 1)) / {{ section.settings.mobile_cards }})); }
 }
+.home-product-carousel { padding: 36px 0; }
+.home-product-carousel__head { display:flex; justify-content:space-between; gap:16px; align-items:end; margin-bottom:16px; }
+.home-product-carousel__head h2 { margin:0; }
+.home-product-carousel__track { display:grid; grid-auto-flow:column; grid-auto-columns:minmax(220px, 23%); gap:16px; overflow:auto; scroll-snap-type:x mandatory; padding-bottom:8px; }
+.home-product-carousel__card { scroll-snap-align:start; border:1px solid rgba(0,0,0,.08); border-radius:14px; padding:10px; background:rgb(var(--color-background)); }
+.home-product-carousel__image-wrap { position:relative; display:block; }
+.home-product-carousel__image-wrap img { width:100%; height:auto; border-radius:10px; }
+.home-product-carousel__vendor { margin:10px 0 4px; font-size:.8rem; text-transform:uppercase; opacity:.65; }
+.home-product-carousel__card h3 { margin:0 0 8px; font-size:1rem; }
+.badge { position:absolute; top:8px; left:8px; background:#d21f3c; color:#fff; padding:2px 8px; border-radius:999px; font-size:.72rem; }
+@media(max-width:989px){ .home-product-carousel__track { grid-auto-columns:minmax(190px, 72%); } }
 </style>
 
 {% schema %}
@@ -58,6 +78,9 @@
     {"type":"range","id":"gap","label":"Ruimte tussen kaarten","min":8,"max":28,"step":2,"default":16},
     {"type":"range","id":"padding_top","label":"Padding boven","min":0,"max":120,"step":4,"default":36},
     {"type":"range","id":"padding_bottom","label":"Padding onder","min":0,"max":120,"step":4,"default":36}
+    {"type":"collection","id":"collection","label":"Collectie"},
+    {"type":"text","id":"link_label","label":"Link label","default":"Bekijk alles"},
+    {"type":"range","id":"limit","label":"Aantal producten","min":4,"max":12,"step":1,"default":8}
   ],
   "presets":[{"name":"Home productcarousel"}]
 }

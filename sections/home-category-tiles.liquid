@@ -1,11 +1,15 @@
 <section class="home-category-tiles color-{{ section.settings.color_scheme }}" id="home-category-tiles-{{ section.id }}">
   <div class="page-width">
     <h2 class="{% if section.settings.center_heading %}is-centered{% endif %}">{{ section.settings.title }}</h2>
+<section class="home-category-tiles color-{{ section.settings.color_scheme }}">
+  <div class="page-width">
+    <h2>{{ section.settings.title }}</h2>
     <div class="home-category-tiles__grid">
       {% for block in section.blocks %}
         <article class="home-category-tiles__tile" {{ block.shopify_attributes }}>
           {% if block.settings.image != blank %}
             {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', alt: block.settings.title | escape }}
+            {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: block.settings.title | escape }}
           {% endif %}
           <div class="home-category-tiles__content">
             <h3>{{ block.settings.title }}</h3>
@@ -27,6 +31,14 @@
 #home-category-tiles-{{ section.id }} .home-category-tiles__content { position:relative; z-index:1; display:flex; min-height:220px; flex-direction:column; justify-content:flex-end; align-items:{% if section.settings.center_heading %}center{% else %}flex-start{% endif %}; text-align:{% if section.settings.center_heading %}center{% else %}left{% endif %}; gap:10px; padding:20px; background:linear-gradient(180deg, transparent 30%, rgba(0,0,0,.65) 100%); color:#fff; }
 #home-category-tiles-{{ section.id }} .home-category-tiles__content h3 { margin:0; color:#fff; }
 @media(min-width:750px){ #home-category-tiles-{{ section.id }} .home-category-tiles__grid { grid-template-columns: repeat({{ section.settings.columns_desktop }},minmax(0,1fr)); } }
+.home-category-tiles { padding: 24px 0 36px; }
+.home-category-tiles h2 { margin:0 0 16px; }
+.home-category-tiles__grid { display:grid; gap:16px; grid-template-columns: repeat(1,minmax(0,1fr)); }
+.home-category-tiles__tile { position:relative; overflow:hidden; border-radius:14px; min-height:220px; }
+.home-category-tiles__tile img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.home-category-tiles__content { position:relative; z-index:1; display:flex; min-height:220px; flex-direction:column; justify-content:flex-end; gap:10px; padding:20px; background:linear-gradient(180deg, transparent 30%, rgba(0,0,0,.65) 100%); color:#fff; }
+.home-category-tiles__content h3 { margin:0; color:#fff; }
+@media(min-width:750px){ .home-category-tiles__grid { grid-template-columns: repeat(3,minmax(0,1fr)); } }
 </style>
 
 {% schema %}
@@ -43,6 +55,9 @@
   ],
   "blocks":[{"type":"tile","name":"Tegel","settings":[{"type":"image_picker","id":"image","label":"Afbeelding"},{"type":"text","id":"title","label":"Titel","default":"Wollen werksokken"},{"type":"text","id":"button_label","label":"Knoptekst","default":"Nu shoppen"},{"type":"url","id":"link","label":"Link"}]}],
   "max_blocks": 6,
+  "settings":[{"type":"color_scheme","id":"color_scheme","label":"Kleurschema","default":"scheme-1"},{"type":"text","id":"title","label":"Titel","default":"Shop op materiaal en gebruik"}],
+  "blocks":[{"type":"tile","name":"Tegel","settings":[{"type":"image_picker","id":"image","label":"Afbeelding"},{"type":"text","id":"title","label":"Titel","default":"Wollen werksokken"},{"type":"text","id":"button_label","label":"Knoptekst","default":"Nu shoppen"},{"type":"url","id":"link","label":"Link"}]}],
+  "max_blocks": 3,
   "presets":[{"name":"Home categorie CTA tegels","blocks":[{"type":"tile"},{"type":"tile","settings":{"title":"Katoenen werksokken"}},{"type":"tile","settings":{"title":"Wandelsokken"}}]}]
 }
 {% endschema %}
